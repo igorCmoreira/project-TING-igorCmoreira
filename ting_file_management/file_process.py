@@ -19,8 +19,17 @@ def remove(instance):
     if instance.is_empty():
         return print("Não há elementos", file=sys.stdout)
     att_list = instance.dequeue()
-    return print(f"Arquivo {att_list['nome_do_arquivo']} removido com sucesso", file=sys.stdout)
+    return print(f"Arquivo {att_list['nome_do_arquivo']} removido com sucesso")
 
 
 def file_metadata(instance, position):
-    """Aqui irá sua implementação"""
+    if position > 0 or position > instance.__len__() - 1:
+        return print("Posição inválida", file=sys.stderr)
+    arq = instance.search(position)
+    path_file = arq['nome_do_arquivo']
+    data = {
+        "nome_do_arquivo": path_file,
+        "qtd_linhas": len(txt_importer(path_file)),
+        "linhas_do_arquivo": txt_importer(path_file)
+    }
+    print(f"Arquivo {data} removido com sucesso")
